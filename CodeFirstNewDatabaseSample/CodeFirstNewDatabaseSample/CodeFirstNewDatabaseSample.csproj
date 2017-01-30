@@ -52,12 +52,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201701300929463_InitialCreate.cs" />
+    <Compile Include="Migrations\201701300929463_InitialCreate.Designer.cs">
+      <DependentUpon>201701300929463_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701301006497_AddUrl.cs" />
+    <Compile Include="Migrations\201701301006497_AddUrl.Designer.cs">
+      <DependentUpon>201701301006497_AddUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701301014386_AddUser.cs" />
+    <Compile Include="Migrations\201701301014386_AddUser.Designer.cs">
+      <DependentUpon>201701301014386_AddUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701300929463_InitialCreate.resx">
+      <DependentUpon>201701300929463_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701301006497_AddUrl.resx">
+      <DependentUpon>201701301006497_AddUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701301014386_AddUser.resx">
+      <DependentUpon>201701301014386_AddUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
