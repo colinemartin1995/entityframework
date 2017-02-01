@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:World_2012_DB"
         mc:Ignorable="d"
         Title="MainWindow" Height="1397" Width="1509" Loaded="Window_Loaded">
-    <Window.Resources> 
+    <Window.Resources>
         <CollectionViewSource x:Key="customerViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Customer}, CreateList=True}"/>
         <CollectionViewSource x:Key="customerCustomerAddressViewSource" Source="{Binding CustomerAddress, Source={StaticResource customerViewSource}}"/>
-    </Window.Resources> 
-    <Grid DataContext="{StaticResource customerViewSource}">
-        <DataGrid x:Name="customerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="55,40,396,1126" RowDetailsVisibilityMode="VisibleWhenSelected">
+    </Window.Resources>
+    <Grid DataContext="{StaticResource customerViewSource}" Width="1300">
+        <DataGrid x:Name="customerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,40,340,0" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="companyNameColumn" Binding="{Binding CompanyName}" Header="Company Name" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="customerIDColumn" Binding="{Binding CustomerID}" Header="Customer ID" Width="SizeToHeader"/>
@@ -36,7 +36,7 @@
                 <DataGridTextColumn x:Name="titleColumn" Binding="{Binding Title}" Header="Title" Width="SizeToHeader"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid x:Name="grid1" DataContext="{StaticResource customerCustomerAddressViewSource}" HorizontalAlignment="Left" Margin="1185,40,0,0" VerticalAlignment="Top">
+        <Grid x:Name="grid1" DataContext="{StaticResource customerCustomerAddressViewSource}" HorizontalAlignment="Left" Margin="994,40,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
