@@ -1,0 +1,30 @@
+﻿<Window x:Class="WPFwithEFSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFwithEFSample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Category}, CreateList=True}"/>
+        <CollectionViewSource x:Key="categoryProductsViewSource" Source="{Binding Products, Source={StaticResource categoryViewSource}}"/>
+    </Window.Resources>
+    <Grid>
+        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="60,20,57,99" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="categoryIdColumn" Binding="{Binding CategoryId}" Header="Category Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource categoryProductsViewSource}}" Margin="61,154,57,34" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="categoryIdColumn1" Binding="{Binding CategoryId}" Header="Category Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn1" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="productIdColumn" Binding="{Binding ProductId}" Header="Product Id" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+    
+</Window>
