@@ -1,0 +1,138 @@
+﻿<Window x:Class="World_2012_DB.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:World_2012_DB"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1397" Width="1509" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="customerViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Customer}, CreateList=True}"/>
+        <CollectionViewSource x:Key="customerCustomerAddressViewSource" Source="{Binding CustomerAddress, Source={StaticResource customerViewSource}}"/>
+        <local:AdventureWorksLT2012DataSet x:Key="adventureWorksLT2012DataSet"/>
+        <CollectionViewSource x:Key="productViewSource" Source="{Binding Product, Source={StaticResource adventureWorksLT2012DataSet}}"/>
+        <local:AdventureWorksLT2012DataSet1 x:Key="adventureWorksLT2012DataSet1"/>
+        <CollectionViewSource x:Key="productCategoryViewSource" Source="{Binding ProductCategory, Source={StaticResource adventureWorksLT2012DataSet1}}"/>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource customerViewSource}" Width="1300">
+        <DockPanel LastChildFill="True">
+            <WrapPanel DockPanel.Dock="Top">
+                <Button Content="CustomerAdd" Click="Button_Click_CustomerAdd"></Button>
+                <Button Content="ProductCategory" Margin="7,0,0,0"></Button>
+            </WrapPanel>
+            <StackPanel x:Name="CustomerAdd" Visibility="Collapsed">
+                <DataGrid x:Name="customerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  RowDetailsVisibilityMode="VisibleWhenSelected" Width="725">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="companyNameColumn" Binding="{Binding CompanyName}" Header="Company Name" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="customerIDColumn" Binding="{Binding CustomerID}" Header="Customer ID" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="emailAddressColumn" Binding="{Binding EmailAddress}" Header="Email Address" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="firstNameColumn" Binding="{Binding FirstName}" Header="First Name" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="lastNameColumn" Binding="{Binding LastName}" Header="Last Name" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="middleNameColumn" Binding="{Binding MiddleName}" Header="Middle Name" Width="SizeToHeader"/>
+                        <DataGridTemplateColumn x:Name="modifiedDateColumn" Header="Modified Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding ModifiedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridCheckBoxColumn x:Name="nameStyleColumn" Binding="{Binding NameStyle}" Header="Name Style" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="passwordHashColumn" Binding="{Binding PasswordHash}" Header="Password Hash" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="passwordSaltColumn" Binding="{Binding PasswordSalt}" Header="Password Salt" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="phoneColumn" Binding="{Binding Phone}" Header="Phone" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="rowguidColumn" Binding="{Binding rowguid}" Header="rowguid" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="salesPersonColumn" Binding="{Binding SalesPerson}" Header="Sales Person" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="suffixColumn" Binding="{Binding Suffix}" Header="Suffix" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="titleColumn" Binding="{Binding Title}" Header="Title" Width="SizeToHeader"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid x:Name="grid1" DataContext="{StaticResource customerCustomerAddressViewSource}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="245" Width="221">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Address ID:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="addressIDTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Address.AddressID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="Address Line 1:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="addressLine1TextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Address.AddressLine1, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="Address Line 2:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                    <TextBox x:Name="addressLine2TextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Address.AddressLine2, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="City:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBox x:Name="cityTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Address.City, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="Country Region:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+                    <TextBox x:Name="countryRegionTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="4" Text="{Binding Address.CountryRegion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="Modified Date:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="modifiedDateDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" SelectedDate="{Binding Address.ModifiedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                    <Label Content="Postal Code:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
+                    <TextBox x:Name="postalCodeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="6" Text="{Binding Address.PostalCode, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="rowguid:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
+                    <TextBox x:Name="rowguidTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="7" Text="{Binding Address.rowguid, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="State Province:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="stateProvinceTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" Text="{Binding Address.StateProvince, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="ProductCategory" Margin="0,35,0,0" Width="1280" DataContext="{StaticResource productViewSource}">
+                <DataGrid x:Name="productDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Height="200" ItemsSource="{Binding Source={StaticResource productViewSource}}" Margin="200,0,115,0" RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="productIDColumn" Binding="{Binding ProductID}" Header="Product ID" IsReadOnly="True" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="productNumberColumn" Binding="{Binding ProductNumber}" Header="Product Number" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="colorColumn" Binding="{Binding Color}" Header="Color" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="standardCostColumn" Binding="{Binding StandardCost}" Header="Standard Cost" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="listPriceColumn" Binding="{Binding ListPrice}" Header="List Price" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="sizeColumn" Binding="{Binding Size}" Header="Size" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="weightColumn" Binding="{Binding Weight}" Header="Weight" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="productCategoryIDColumn" Binding="{Binding ProductCategoryID}" Header="Product Category ID" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="productModelIDColumn" Binding="{Binding ProductModelID}" Header="Product Model ID" Width="SizeToHeader"/>
+                        <DataGridTemplateColumn x:Name="sellStartDateColumn" Header="Sell Start Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding SellStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="sellEndDateColumn" Header="Sell End Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding SellEndDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="discontinuedDateColumn" Header="Discontinued Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding DiscontinuedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn x:Name="thumbnailPhotoFileNameColumn" Binding="{Binding ThumbnailPhotoFileName}" Header="Thumbnail Photo File Name" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="rowguidColumn1" Binding="{Binding rowguid}" Header="rowguid" Width="SizeToHeader"/>
+                        <DataGridTemplateColumn x:Name="modifiedDateColumn1" Header="Modified Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding ModifiedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <ComboBox x:Name="comboBox" DisplayMemberPath="Name" ItemsSource="{Binding Source={StaticResource productCategoryViewSource}}"/>
+
+
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+
+</Window>
