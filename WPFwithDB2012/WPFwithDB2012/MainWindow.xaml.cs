@@ -30,11 +30,27 @@ namespace WPFwithDB2012
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             System.Windows.Data.CollectionViewSource customerViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerViewSource")));
-             _context.Customer.Load();
+            _context.Customer.Load();
             customerViewSource.Source = _context.Customer.Local;
 
+            System.Windows.Data.CollectionViewSource productCategoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("productCategoryViewSource")));
+            // Charger les données en définissant la propriété CollectionViewSource.Source :
+            // productCategoryViewSource.Source = [source de données générique]
+            _context.ProductCategory.Load();
+            productCategoryViewSource.Source = _context.ProductCategory.Local;
         }
 
+        private void Button_Click_CustomAdd(object sender, RoutedEventArgs e)
+        {
+            CustomAddWindow.Visibility = Visibility.Visible;
+            ProductCatWindow.Visibility = Visibility.Collapsed;
+        }
 
+        // ProductCatWindow
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ProductCatWindow.Visibility = Visibility.Visible;
+            CustomAddWindow.Visibility = Visibility.Collapsed;
+        }
     }
 }

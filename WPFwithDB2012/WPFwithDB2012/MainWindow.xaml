@@ -7,15 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1366" Loaded="Window_Loaded">
     <Window.Resources>
-               <CollectionViewSource x:Key="customerViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Customer}, CreateList=True}"/>
+        <CollectionViewSource x:Key="customerViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Customer}, CreateList=True}"/>
         <CollectionViewSource x:Key="customerCustomerAddressViewSource" Source="{Binding CustomerAddress, Source={StaticResource customerViewSource}}"/>
+        <CollectionViewSource x:Key="productCategoryViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ProductCategory}, CreateList=True}"/>
+        <CollectionViewSource x:Key="productCategoryProductViewSource" Source="{Binding Product, Source={StaticResource productCategoryViewSource}}"/>
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <WrapPanel x:Name="Menu" DockPanel.Dock="Top">
-            <Button Content="CustomAdd"></Button>
-            <Button Content="ProdCat" Margin="7,0,0,0"></Button>
+            <Button Content="CustomAdd" Click="Button_Click_CustomAdd"></Button>
+            <Button Content="ProdCat" Margin="7,0,0,0" Click="Button_Click"></Button>
         </WrapPanel>
-        <StackPanel DataContext="{StaticResource customerViewSource}">
+        <StackPanel DataContext="{StaticResource customerViewSource}" x:Name="CustomAddWindow">
             <Grid>
                 <DataGrid x:Name="customerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Height="200" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="200,75,608,35">
                     <DataGrid.Columns>
@@ -80,6 +82,57 @@
 
 
             </Grid>
+
+        </StackPanel>
+        <StackPanel Width="1417" DataContext="{StaticResource productCategoryViewSource}" x:Name="ProductCatWindow">
+           
+                <ComboBox x:Name="comboBox" DisplayMemberPath="Name" ItemsSource="{Binding}"/>
+                <DataGrid x:Name="productDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Height="200" ItemsSource="{Binding Source={StaticResource productCategoryProductViewSource}}" Margin="110,0,907,0" RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="colorColumn" Binding="{Binding Color}" Header="Color" Width="SizeToHeader"/>
+                        <DataGridTemplateColumn x:Name="discontinuedDateColumn" Header="Discontinued Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding DiscontinuedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn x:Name="listPriceColumn" Binding="{Binding ListPrice}" Header="List Price" Width="SizeToHeader"/>
+                        <DataGridTemplateColumn x:Name="modifiedDateColumn1" Header="Modified Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding ModifiedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="productCategoryIDColumn" Binding="{Binding ProductCategoryID}" Header="Product Category ID" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="productIDColumn" Binding="{Binding ProductID}" Header="Product ID" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="productModelIDColumn" Binding="{Binding ProductModelID}" Header="Product Model ID" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="productNumberColumn" Binding="{Binding ProductNumber}" Header="Product Number" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="rowguidColumn1" Binding="{Binding rowguid}" Header="rowguid" Width="SizeToHeader"/>
+                        <DataGridTemplateColumn x:Name="sellEndDateColumn" Header="Sell End Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding SellEndDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="sellStartDateColumn" Header="Sell Start Date" Width="SizeToHeader">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding SellStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn x:Name="sizeColumn" Binding="{Binding Size}" Header="Size" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="standardCostColumn" Binding="{Binding StandardCost}" Header="Standard Cost" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="thumbnailPhotoFileNameColumn" Binding="{Binding ThumbnailPhotoFileName}" Header="Thumbnail Photo File Name" Width="SizeToHeader"/>
+                        <DataGridTextColumn x:Name="weightColumn" Binding="{Binding Weight}" Header="Weight" Width="SizeToHeader"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+           
 
         </StackPanel>
 
