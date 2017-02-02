@@ -29,14 +29,12 @@ namespace WPFwithDB2012
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-             
             System.Windows.Data.CollectionViewSource customerViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerViewSource")));
-
-            _context.Customer.Load();
+             _context.Customer.Load();
             customerViewSource.Source = _context.Customer.Local;
 
-            /*  System.Windows.Data.CollectionViewSource addressViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("addressViewSource")));
-           */
         }
+
+
     }
 }
