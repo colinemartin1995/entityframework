@@ -10,8 +10,15 @@
         <CollectionViewSource x:Key="customerViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Customer}, CreateList=True}"/>
         <CollectionViewSource x:Key="customerCustomerAddressViewSource" Source="{Binding CustomerAddress, Source={StaticResource customerViewSource}}"/>
     </Window.Resources>
+    
     <Grid DataContext="{StaticResource customerViewSource}" Width="1300">
-        <DataGrid x:Name="customerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,40,340,0" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DockPanel LastChildFill="True">
+            <WrapPanel DockPanel.Dock="Top">
+                <Button Content="CustomerAdd" Click="Button_Click"></Button>
+                <Button Content="ProductCategory" Margin="7,0,0,0"></Button>
+            </WrapPanel>
+            <StackPanel x:Name="CustomerAdd" Visibility="Collapsed">
+                <DataGrid x:Name="customerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,40,340,0" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="companyNameColumn" Binding="{Binding CompanyName}" Header="Company Name" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="customerIDColumn" Binding="{Binding CustomerID}" Header="Customer ID" Width="SizeToHeader"/>
@@ -23,7 +30,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker SelectedDate="{Binding ModifiedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                        </DataTemplate>
+                        </DataTemplate> 
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridCheckBoxColumn x:Name="nameStyleColumn" Binding="{Binding NameStyle}" Header="Name Style" Width="SizeToHeader"/>
@@ -36,7 +43,7 @@
                 <DataGridTextColumn x:Name="titleColumn" Binding="{Binding Title}" Header="Title" Width="SizeToHeader"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid x:Name="grid1" DataContext="{StaticResource customerCustomerAddressViewSource}" HorizontalAlignment="Left" Margin="994,40,0,0" VerticalAlignment="Top">
+                <Grid x:Name="grid1" DataContext="{StaticResource customerCustomerAddressViewSource}" HorizontalAlignment="Left" Margin="994,40,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -71,7 +78,8 @@
             <Label Content="State Province:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="8" VerticalAlignment="Center"/>
             <TextBox x:Name="stateProvinceTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" Text="{Binding Address.StateProvince, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
-
+            </StackPanel>
+        </DockPanel>
     </Grid>
-
+ 
 </Window>

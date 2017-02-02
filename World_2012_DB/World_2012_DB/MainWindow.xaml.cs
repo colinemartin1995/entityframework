@@ -38,5 +38,13 @@ namespace World_2012_DB
 
 
         }
+
+        /*Bouton CustomerAddress*/
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.CustomerAdd.Visibility = Visibility.Visible;
+                                
+
+        }
     }
 }
